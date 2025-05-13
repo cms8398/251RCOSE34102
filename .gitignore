@@ -1,5 +1,5 @@
 #실행 파일 무시
-*.out 
+scheduler.out 
 
 #vscode에서 생성하는 파일 무시
 .vscode/
