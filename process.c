@@ -52,6 +52,22 @@ int compare_process_by_CPU_burst(const void *a, const void *b){
     return (p1->CPU_burst - p2->CPU_burst);
 }
 
+//compare function for qsort, priority를 기준으로 process들을 오름차순 정렬을 사용.
+int compare_process_by_priority(const void *a, const void *b)
+{
+    const Process *p1 = (const Process *)a;
+    const Process *p2 = (const Process *)b;
+    return (p1->priority - p2->priority);
+}
+
+//compare function for qsort, start time을 기준으로 process들을 오름차순 정렬을 사용. 간트차트 출력을 위해 사용
+int compare_process_by_start_time(const void *a, const void *b)
+{
+    const Process *p1 = (const Process *)a;
+    const Process *p2 = (const Process *)b;
+    return (p1->start_time - p2->start_time);
+}
+
 //process들에 할당한 메모리를 free해주는 함수
 void delete_processes(Process* processes) {
     free(processes);

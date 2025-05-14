@@ -31,28 +31,44 @@ void swap(Process** a, Process** b) {
     *b = temp;
 }
 
-void heapify_up(MinHeap* h, int index) {
+void heapify_up(MinHeap* h, int index, SchedulerType type) {
     while (index > 0) {
         int parent = (index - 1) / 2;
-        if (h->data[parent]->CPU_burst > h->data[index]->CPU_burst) {
-            swap(&h->data[parent], &h->data[index]);
-            index = parent;
-        } else {
-            break;
+        if (type == sjf) { // SJF
+            if (h->data[parent]->CPU_burst > h->data[index]->CPU_burst) {
+                swap(&h->data[parent], &h->data[index]);
+                index = parent;
+            } else {
+                break;
+            }
+        } else if (type == priority) { // Priority
+            if (h->data[parent]->priority > h->data[index]->priority) {
+                swap(&h->data[parent], &h->data[index]);
+                index = parent;
+            } else {
+                break;
+            }
         }
     }
 }
 
-void heapify_down(MinHeap* h, int index) {
+void heapify_down(MinHeap* h, int index, SchedulerType type) {
     while (1) {
         int left = 2 * index + 1;
         int right = 2 * index + 2;
         int smallest = index;
 
-        if (left < h->size && h->data[left]->CPU_burst < h->data[smallest]->CPU_burst)
-            smallest = left;
-        if (right < h->size && h->data[right]->CPU_burst < h->data[smallest]->CPU_burst)
-            smallest = right;
+        if (type == sjf) {
+            if (left < h->size && h->data[left]->CPU_burst < h->data[smallest]->CPU_burst)
+                smallest = left;
+            if (right < h->size && h->data[right]->CPU_burst < h->data[smallest]->CPU_burst)
+                smallest = right;
+        } else if (type == priority) {
+            if (left < h->size && h->data[left]->priority < h->data[smallest]->priority)
+                smallest = left;
+            if (right < h->size && h->data[right]->priority < h->data[smallest]->priority)
+                smallest = right;
+        }
 
         if (smallest != index) {
             swap(&h->data[smallest], &h->data[index]);
@@ -63,24 +79,24 @@ void heapify_down(MinHeap* h, int index) {
     }
 }
 
-void insert_heap(MinHeap* h, Process* p) {
+void insert_heap(MinHeap* h, Process* p, SchedulerType type) {
     if (h->size >= h->capacity) {
         fprintf(stderr, "Heap overflow\n");
         return;
     }
     h->data[h->size] = p;
-    heapify_up(h, h->size);
+    heapify_up(h, h->size,type);
     h->size++;
 }
 
-Process* extract_min(MinHeap* h) {
+Process* extract_min(MinHeap* h, SchedulerType type) {
     if (is_empty(h)) {
         fprintf(stderr, "Heap underflow\n");
         exit(EXIT_FAILURE);
     }
     Process* min = h->data[0];
     h->data[0] = h->data[--h->size];
-    heapify_down(h, 0);
+    heapify_down(h, 0, type);
     return min;
 }
 
@@ -91,7 +107,7 @@ void destroy_heap(MinHeap* h) {
     }
 }
 
-void increment_sjf_waiting_times(MinHeap *h) 
+void increment_heap_waiting_times(MinHeap *h) 
 {
     for(int i = 0; i< h->size; i++)
     {

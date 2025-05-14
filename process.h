@@ -36,6 +36,7 @@ void delete_processes(Process* processes);
 //stdlib.h의 qsort를 사용하기 위한 compare function들
 int compare_process_by_arrival(const void *a, const void *b); 
 int compare_process_by_CPU_burst(const void *a, const void *b);
+int compare_process_by_priority(const void *a, const void *b);
+int compare_process_by_start_time(const void *a, const void *b);
 
-
-#endif // 
+#endif // PROCESS_H

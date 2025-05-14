@@ -7,6 +7,8 @@
 #include "process.h"
 #include "evaluation.h"
 #include "cpu.h"
+#include "scheduler_type.h"
+#include "gantt.h"
 
 //fcfs스케줄링 알고리즘 헤더파일
 #include "fcfs.h"
@@ -15,6 +17,9 @@
 //sjf스케줄링 알고리즘 헤더파일
 #include "sjf.h"
 #include "heap.h" 
+
+//priority 스케줄링 알고리즘 헤더파일 -> priority가 낮을 수록 실행 우선 순위 높은 것
+#include "priority.h"
 
 int main(void)
 {  
@@ -61,26 +66,36 @@ int main(void)
         print_process(processes+i); 
     }
     
-    int choice = 0;
+    SchedulerType type;
+    int input;
     getchar(); // 버퍼 비우기
     printf("Choose the scheduling algorithm: ");
-    scanf("%d",&choice);
-    switch (choice)
+    scanf("%d",&input);
+    type = (SchedulerType)input; //사용자가 입력한 스케줄링 알고리즘을 enum으로 변환
+    switch (type)
     {
-        case 1:
-            fcfs(processes, num_processes); //fcfs 알고리즘을 사용한 스케줄링
-            printf("Scheduling completed\n");           
+        case fcfs:
+            FCFS(processes, num_processes); //fcfs 알고리즘을 사용한 스케줄링
+            printf("Scheduling completed\n");
             print_average_performance(processes, num_processes);
             print_each_performance(processes, num_processes);
             simple_gantt(processes, num_processes); //fcfs 알고리즘을 사용한 간트차트 출력
             break;
        
-        case 2:
+        case sjf:
             SJF(processes, num_processes); //sjf 알고리즘을 사용한 스케줄링
             printf("Scheduling completed\n");
             print_average_performance(processes, num_processes);
             print_each_performance(processes, num_processes);
             simple_gantt(processes, num_processes); //sjf 알고리즘을 사용한 간트차트 출력
+            break;
+        
+        case priority:
+            Priority(processes, num_processes); //priority 알고리즘을 사용한 스케줄링
+            printf("Scheduling completed\n");
+            print_average_performance(processes, num_processes);
+            print_each_performance(processes, num_processes);
+            simple_gantt(processes, num_processes); //priority 알고리즘을 사용한 간트차트 출력
             break;
 
         default:

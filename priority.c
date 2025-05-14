@@ -3,28 +3,24 @@
 #include "process.h"
 #include "cpu.h"
 #include "heap.h"
-#include "sjf.h"
+#include "priority.h"
 #include "scheduler_type.h"
 
-void SJF(Process* processes, int num_processes) {
+void Priority(Process* processes, int num_processes){
     
-    SchedulerType type = sjf;
-    // 프로세스 도착 시간에 따라 정렬
+    SchedulerType type = priority;
     qsort(processes, num_processes, sizeof(Process), compare_process_by_arrival);
     
     MinHeap heap;
+    MinHeap *rq = create_heap(num_processes);
     CPU cpu;
 
-    MinHeap *rq =  create_heap(num_processes);
     cpu_init(&cpu);
-
     int completed = 0;
     int next = 0;
-    
-    printf("SJF Scheduling initiated...\n");
 
     while(completed < num_processes)
-    { 
+    {
         while(next < num_processes && processes[next].arrival_time == cpu.time) //현재 시간에 도착한 프로세스들 힙에 삽입.
         {
             insert_heap(rq, &processes[next], type);
@@ -43,6 +39,9 @@ void SJF(Process* processes, int num_processes) {
         completed += cpu_tick(&cpu); //1 time unit 실행
     }
 
+    
+    
+    
     destroy_heap(rq); //힙 메모리 해제
-}
 
+}

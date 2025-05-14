@@ -4,6 +4,7 @@
 #define HEAP_H
 
 #include "process.h"
+#include "scheduler_type.h"
 
 typedef struct {
     Process** data; // 포인터 배열
@@ -12,10 +13,10 @@ typedef struct {
 } MinHeap;
 
 MinHeap* create_heap(int capacity);
-void insert_heap(MinHeap* h, Process* p);
-Process* extract_min(MinHeap* h);
+void insert_heap(MinHeap* h, Process* p, SchedulerType type);
+Process* extract_min(MinHeap* h, SchedulerType type);
 int is_empty(MinHeap* h);
 void destroy_heap(MinHeap* h);
-void increment_sjf_waiting_times(MinHeap *h);
+void increment_heap_waiting_times(MinHeap *h);
 
 #endif // HEAP_H
