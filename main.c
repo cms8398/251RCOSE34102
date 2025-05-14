@@ -10,10 +10,11 @@
 
 //fcfs스케줄링 알고리즘 헤더파일
 #include "fcfs.h"
+#include "ready_queue.h"
 
 //sjf스케줄링 알고리즘 헤더파일
+#include "sjf.h"
 #include "heap.h" 
-
 
 int main(void)
 {  
@@ -71,9 +72,17 @@ int main(void)
             printf("Scheduling completed\n");           
             print_average_performance(processes, num_processes);
             print_each_performance(processes, num_processes);
-            fcfs_gantt(processes, num_processes); //fcfs 알고리즘을 사용한 간트차트 출력
+            simple_gantt(processes, num_processes); //fcfs 알고리즘을 사용한 간트차트 출력
             break;
        
+        case 2:
+            SJF(processes, num_processes); //sjf 알고리즘을 사용한 스케줄링
+            printf("Scheduling completed\n");
+            print_average_performance(processes, num_processes);
+            print_each_performance(processes, num_processes);
+            simple_gantt(processes, num_processes); //sjf 알고리즘을 사용한 간트차트 출력
+            break;
+
         default:
             printf("Invalid choice\n Terminating the process\n");
             delete_processes(processes);

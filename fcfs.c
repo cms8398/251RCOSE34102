@@ -40,7 +40,7 @@ void fcfs(Process* processes, int num_processes) //fcfs 알고리즘
     }
 }
 
-void fcfs_gantt(Process* processes, int num_processes) //간트 차트 출력 -> fcfs 함수 호출 후에 출력
+void simple_gantt(Process* processes, int num_processes) //간트 차트 출력 -> fcfs 함수 호출 후에 출력
 {
     //processes 배열을 현재 arrival_time이 빠른 순서대로 정렬함.
     //해당 순서대로 각 프로세스의 start time과 completion time 저장.
@@ -55,9 +55,10 @@ void fcfs_gantt(Process* processes, int num_processes) //간트 차트 출력 ->
     }
     
     //간트차트 -> 문자열 형태로 작성
-    char chart[400] = {'\0'}; // 간트 차트의 길이를 400으로 설정, '__'가 1 unit time을 나타냄
+    char chart[500] = {'\0'}; // 간트 차트의 길이를 500으로 설정, '__'가 1 unit time을 나타냄
     int current = 0;
-    for(int i = 0; i < num_processes; i++)
+    int i=0;
+    while(i < num_processes)
     {
       while(current < start_times[i])
       {
@@ -71,7 +72,7 @@ void fcfs_gantt(Process* processes, int num_processes) //간트 차트 출력 ->
         if(chart[current*2] == '\0')
         {
           chart[current*2] = '|';
-          chart[current*2+1] = '|';
+          chart[current*2+1] = '_';
         }
         current++;
       }
@@ -85,8 +86,15 @@ void fcfs_gantt(Process* processes, int num_processes) //간트 차트 출력 ->
     
       if (current == completion_times[i])
       {
+        i++;
         chart[current*2] = '|';
-        chart[current*2+1] = '|';
+
+        if (i == num_processes)
+        {
+          break;
+        }
+
+        chart[current*2+1] = '_';
         current++;
       }
     }
@@ -123,15 +131,15 @@ void fcfs_gantt(Process* processes, int num_processes) //간트 차트 출력 ->
 
     //마지막 줄 출력 -> process의 start, completion time 표시해주기  
     int count=0;
-    int i = 0;
+    i = 0;
     while(chart[count]!='\0')
     {
        if(chart[count*2]=='|')
        {
+        printf("%d",count);
         if(count<10){
             printf(" ");
         }
-        printf("%d",count);
        }
        else{
         printf("  ");

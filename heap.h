@@ -5,16 +5,17 @@
 
 #include "process.h"
 
-#define MAX_HEAP_SIZE 100
-
 typedef struct {
-    Process* data[MAX_HEAP_SIZE]; // 포인터 배열
+    Process** data; // 포인터 배열
     int size;
+    int capacity;
 } MinHeap;
 
-void init_heap(MinHeap* h);
+MinHeap* create_heap(int capacity);
 void insert_heap(MinHeap* h, Process* p);
 Process* extract_min(MinHeap* h);
 int is_empty(MinHeap* h);
+void destroy_heap(MinHeap* h);
+void increment_sjf_waiting_times(MinHeap *h);
 
 #endif // HEAP_H

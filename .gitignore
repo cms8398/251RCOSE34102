@@ -1,5 +1,6 @@
 #실행 파일 무시
-scheduler.out 
+scheduler.out
+myprogram 
 
 #vscode에서 생성하는 파일 무시
 .vscode/

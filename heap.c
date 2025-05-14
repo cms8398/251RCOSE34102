@@ -4,8 +4,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void init_heap(MinHeap* h) {
-    h->size = 0;
+MinHeap* create_heap(int capacity) {
+    MinHeap *heap = (MinHeap*)malloc(sizeof(MinHeap));
+    if (heap == NULL) {
+        fprintf(stderr, "Heap allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    heap->size = 0;
+    heap->capacity = capacity;
+    heap->data = (Process**)malloc(capacity * sizeof(Process*));
+     if(heap->data ==NULL){
+        fprintf(stderr, "Heap data allocation failed\n");
+        exit(EXIT_FAILURE);
+     }
+    return heap;
 }
 
 int is_empty(MinHeap* h) {
@@ -51,7 +64,7 @@ void heapify_down(MinHeap* h, int index) {
 }
 
 void insert_heap(MinHeap* h, Process* p) {
-    if (h->size >= MAX_HEAP_SIZE) {
+    if (h->size >= h->capacity) {
         fprintf(stderr, "Heap overflow\n");
         return;
     }
@@ -69,4 +82,19 @@ Process* extract_min(MinHeap* h) {
     h->data[0] = h->data[--h->size];
     heapify_down(h, 0);
     return min;
+}
+
+void destroy_heap(MinHeap* h) {
+    if (h) {
+        free(h->data);
+        free(h);
+    }
+}
+
+void increment_sjf_waiting_times(MinHeap *h) 
+{
+    for(int i = 0; i< h->size; i++)
+    {
+        h->data[i]->waiting_time++;
+    }
 }
