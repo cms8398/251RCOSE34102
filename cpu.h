@@ -21,12 +21,13 @@ int cpu_tick(CPU* cpu);
 // 현재 프로세스 종료
 void cpu_finish(CPU* cpu);
 
-//현재 프로세스가 cpu 점유를 해제(종료된 건 아니고 roundrobin이나 preemptive scheduling을 위해서)
-void cpu_release(CPU* cpu);
+//현재 프로세스가 cpu 점유를 해제(종료된 건 아니고 round_robin이나 preemptive scheduling을 위해서)
+Process* cpu_release(CPU* cpu);
 
 // 상태 확인
 int cpu_is_idle(CPU* cpu);
 int cpu_get_time(CPU* cpu);
 
+//현재 실행 중인 프로세스 반환. 없으면 NULL
+Process* cpu_get_current(CPU *cpu);
 #endif
-

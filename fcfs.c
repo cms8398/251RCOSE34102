@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "process.h"
 #include "cpu.h"
-#include "fcfs.h"
+#include "schedulers.h"
 #include "ready_queue.h"
 
 void FCFS(Process* processes, int num_processes) //fcfs 알고리즘

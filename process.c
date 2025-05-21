@@ -68,6 +68,15 @@ int compare_process_by_start_time(const void *a, const void *b)
     return (p1->start_time - p2->start_time);
 }
 
+
+int compare_process_by_remaining_time(const void *a, const void *b)
+{
+    const Process *p1 = (const Process *)a;
+    const Process *p2 = (const Process *)b;
+    return (p1->remaining_time - p2->remaining_time);
+}
+
+
 //process들에 할당한 메모리를 free해주는 함수
 void delete_processes(Process* processes) {
     free(processes);

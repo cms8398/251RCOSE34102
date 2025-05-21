@@ -110,3 +110,29 @@ void simple_gantt(Process* processes, int num_processes) //간트 차트 출력 
     }
     printf("\n");
 }
+
+void new_gantt(int* log) {
+    int i = 0;
+
+    // 1. 프로세스 라인: 각 구간에 | Pn | 형식으로 출력
+    while (log[i] != -2) {
+        if(log[i] == -1){
+          printf("| IDLE");
+          i++;
+        }
+        else
+        {
+          printf("| P%-2d ", log[i]);
+          i++;
+        }
+    }
+
+    printf("|\n");
+
+    // 2. 아래 시간 라인: 구간 시작점 ~ 마지막
+    for (int j = 0; j <= i; j++) {
+        printf("%-6d", j);
+    }
+    printf("\n");
+}
+

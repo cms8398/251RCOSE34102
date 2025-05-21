@@ -44,7 +44,7 @@ void enqueue(ReadyQueue* q, Process* p) {
         return;
     }
     q->data[q->rear] = p;
-    q->rear = (q->rear + 1) % q->capacity;
+    q->rear = (q->rear + 1) % (q->capacity);
     q->size++;
 }
 

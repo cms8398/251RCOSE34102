@@ -4,7 +4,10 @@
 typedef enum {
     fcfs,
     sjf,
-    priority
+    priority,
+    round_robin,
+    pre_sjf,
+    pre_priority,
 } SchedulerType;
 
 #endif

@@ -39,15 +39,16 @@ int cpu_tick(CPU* cpu) {
     }
 }
 
-void cpu_release(CPU* cpu) //process가 cpu를 점유하다가 다른 process에게 cpu를 양도하는 경우
+Process * cpu_release(CPU* cpu) //process가 cpu를 점유하다가 다른 process에게 cpu를 양도하는 경우
 {
-    if (cpu->current == NULL) return;
+    if (cpu->current == NULL) return NULL;
 
     Process* p = cpu->current;
    
     p->state = READY;
     cpu->clock = -1; // 다음 프로세스가 할당될 때까지 -1로 초기화 
     cpu->current = NULL;
+    return p; // cpu에서 해제된 프로세스 반환
 }
 
 void cpu_finish(CPU* cpu) {
@@ -67,4 +68,9 @@ int cpu_is_idle(CPU* cpu) {
 
 int cpu_get_time(CPU* cpu) {
     return cpu->time;
+}
+
+Process* cpu_get_current(CPU *cpu)
+{
+    return cpu->current;
 }

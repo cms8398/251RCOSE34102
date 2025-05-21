@@ -10,11 +10,12 @@ typedef struct {
     Process** data; // 포인터 배열
     int size;
     int capacity;
+    int (*compare)(const void*, const void*); // 비교 함수 포인터
 } MinHeap;
 
-MinHeap* create_heap(int capacity);
-void insert_heap(MinHeap* h, Process* p, SchedulerType type);
-Process* extract_min(MinHeap* h, SchedulerType type);
+MinHeap* create_heap(int capacity, int (*compare)(const void*, const void*));
+void insert_heap(MinHeap* h, Process* p);
+Process* extract_min(MinHeap* h);
 int is_empty(MinHeap* h);
 void destroy_heap(MinHeap* h);
 void increment_heap_waiting_times(MinHeap *h);
