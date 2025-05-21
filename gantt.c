@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "process.h"
+#include "compare.h"
 
 void simple_gantt(Process* processes, int num_processes) //간트 차트 출력 -> fcfs, sjf 함수 호출 후 사용할 함수
 {

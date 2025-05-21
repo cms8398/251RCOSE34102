@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "process.h"
 #include "heap.h"
+#include "compare.h"
 
 MinHeap* create_heap(int capacity, int (*compare)(const void*, const void*)) {
     MinHeap *heap = (MinHeap*)malloc(sizeof(MinHeap));

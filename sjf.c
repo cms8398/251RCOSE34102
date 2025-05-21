@@ -5,6 +5,7 @@
 #include "heap.h"
 #include "schedulers.h"
 #include "scheduler_type.h"
+#include "compare.h"
 
 void SJF(Process* processes, int num_processes) {
     
@@ -15,7 +16,7 @@ void SJF(Process* processes, int num_processes) {
     CPU cpu;
 
     MinHeap *rq =  create_heap(num_processes, compare_process_by_CPU_burst);
-    cpu_init(&cpu);
+    create_cpu(&cpu);
 
     int completed = 0;
     int next = 0;

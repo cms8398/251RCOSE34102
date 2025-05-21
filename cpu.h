@@ -10,7 +10,7 @@ typedef struct {
 } CPU;
 
 // 초기화
-void cpu_init(CPU* cpu);
+void create_cpu(CPU* cpu);
 
 // 프로세스 할당
 void cpu_assign(CPU* cpu, Process* p);

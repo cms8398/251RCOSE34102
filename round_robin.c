@@ -3,8 +3,9 @@
 #include "process.h"
 #include "cpu.h"
 #include "ready_queue.h"
-#include "round_robin.h"
 #include "scheduler_type.h"
+#include "schedulers.h"
+#include "compare.h"
 
 void RR(Process *processes, int num_processes, int time_quantum, int* execution_log)
 {
@@ -14,7 +15,7 @@ void RR(Process *processes, int num_processes, int time_quantum, int* execution_
     ReadyQueue* rq = create_queue(num_processes);
     
     CPU cpu;
-    cpu_init(&cpu);
+    create_cpu(&cpu);
     
     int completed = 0; // 완료된 프로세스 수 -> while문 탈출조건임
     int next = 0; //processes배열에서 다음에 레디큐에 삽입될 프로세스의 인덱스

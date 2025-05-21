@@ -5,6 +5,7 @@
 
 //프로세스, 스케줄링 결과 평가함수, cpu의 헤더파일
 #include "process.h"
+#include "compare.h"
 #include "evaluation.h"
 #include "cpu.h"
 #include "scheduler_type.h"

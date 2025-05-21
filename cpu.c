@@ -1,7 +1,7 @@
 #include "cpu.h"
 #include <stdio.h>
 
-void cpu_init(CPU* cpu) {
+void create_cpu(CPU* cpu) {
     cpu->time = 0;
     cpu->current = NULL;
     cpu->clock = -1;

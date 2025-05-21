@@ -4,6 +4,7 @@
 #include "cpu.h"
 #include "schedulers.h"
 #include "ready_queue.h"
+#include "compare.h"
 
 void FCFS(Process* processes, int num_processes) //fcfs 알고리즘
 {
@@ -11,7 +12,7 @@ void FCFS(Process* processes, int num_processes) //fcfs 알고리즘
     ReadyQueue* rq = create_queue(num_processes);
     
     CPU cpu;
-    cpu_init(&cpu);
+    create_cpu(&cpu);
     
     int completed = 0; // 완료된 프로세스 수 -> while문 탈출조건임
     int next = 0; //processes배열에서 다음에 레디큐에 삽입될 프로세스의 인덱스

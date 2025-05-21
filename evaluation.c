@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "process.h"
+#include "compare.h"
 
 void print_average_performance(Process * processes, int num_processes)
 {
